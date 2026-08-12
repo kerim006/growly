@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "growly",
+  "version": "${mod_version}",
+  "name": "Growly",
+  "icon": "assets/growly/icon.png",
+  "authors": [
+    "kerim006"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "de.kerim006.growly.client.Main"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

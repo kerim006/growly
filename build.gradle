@@ -1,0 +1,65 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        "growly" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+def resourceProperties = [
+    mod_version: project.mod_version,
+    minecraft_version: project.minecraft_version,
+    loader_version: project.loader_version
+]
+
+processResources {
+    inputs.properties(resourceProperties)
+    filteringCharset = "UTF-8"
+
+    filesMatching("fabric.mod.json") {
+        expand(resourceProperties)
+    }
+}
+
+def targetJavaVersion = 25
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release.set(targetJavaVersion)
+}
+
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+def licenseArchiveName = project.archives_base_name
+
+jar {
+    from("LICENSE.txt") {
+        rename { "${it}_${licenseArchiveName}" }
+    }
+}
