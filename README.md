@@ -8,13 +8,6 @@ The label changes color at a glance to show each crop's current stage:
 - **Gold** while growing
 - **Green** when ready to harvest
 
-## Requirements
-
-- Minecraft 26.2
-- Fabric Loader 0.19.3 or newer
-- Fabric API
-- Java 25
-
 ## Build
 
 ```bash
