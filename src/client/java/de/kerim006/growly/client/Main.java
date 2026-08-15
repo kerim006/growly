@@ -24,8 +24,7 @@ public final class Main implements ClientModInitializer {
 
     private static final double LABEL_HEIGHT = 0.8;
 
-    private static final RenderStateDataKey<GrowthLabel> GROWTH_LABEL_KEY =
-            RenderStateDataKey.create(() -> "growly:growth_label");
+    private static final RenderStateDataKey<GrowthLabel> GROWTH_LABEL_KEY = RenderStateDataKey.create(() -> "growly:growth_label");
 
     @Override
     public void onInitializeClient() {
@@ -36,9 +35,8 @@ public final class Main implements ClientModInitializer {
     }
 
     private static void extractGrowthLabel(LevelExtractionContext context, HitResult hitResult) {
-        if (!(hitResult instanceof BlockHitResult blockHitResult) || blockHitResult.getType() != HitResult.Type.BLOCK) {
+        if (!(hitResult instanceof BlockHitResult blockHitResult) || blockHitResult.getType() != HitResult.Type.BLOCK) 
             return;
-        }
 
         Component text = createGrowthLabel(context.level().getBlockState(blockHitResult.getBlockPos()));
 
@@ -54,9 +52,8 @@ public final class Main implements ClientModInitializer {
 
         GrowthLabel growthLabel = levelState.getData(GROWTH_LABEL_KEY);
 
-        if (growthLabel == null) {
+        if (growthLabel == null)
             return;
-        }
 
         CameraRenderState camera = levelState.cameraRenderState;
 
@@ -80,9 +77,8 @@ public final class Main implements ClientModInitializer {
 
         int maxAge = cropBlock.getMaxAge();
 
-        if (maxAge <= 0) {
+        if (maxAge <= 0)
             return null;
-        }
 
         int age = cropBlock.getAge(blockState);
         int percentage = (age * MAX_PERCENTAGE + maxAge / 2) / maxAge;
@@ -91,9 +87,8 @@ public final class Main implements ClientModInitializer {
     }
 
     private static ChatFormatting getGrowthColor(int percentage, boolean readyToHarvest) {
-        if (readyToHarvest) {
+        if (readyToHarvest)
             return ChatFormatting.GREEN;
-        }
 
         return percentage <= EARLY_GROWTH_MAX_PERCENTAGE ? ChatFormatting.RED : ChatFormatting.GOLD;
     }
